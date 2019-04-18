@@ -12,17 +12,17 @@ def doCall(DockerbuildParams params) {
     def label = "kaniko-${UUID.randomUUID().toString()}"
 
     podTemplate(name: 'kaniko', label: label, yaml: """
-    kind: Pod
-    metadata:
-        name: kaniko
-    spec:
-    containers:
-    - name: kaniko
-        image: gcr.io/kaniko-project/executor:latest
-        imagePullPolicy: Always
-        command:
-        - /busybox/cat
-        tty: true
+kind: Pod
+metadata:
+  name: kaniko
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    imagePullPolicy: Always
+    command:
+    - /busybox/cat
+    tty: true
     """
     ) {
         node(label) {
