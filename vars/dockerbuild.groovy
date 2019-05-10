@@ -42,12 +42,17 @@ spec:
                     tag = "${BRANCH_NAME}-${commitHash}"
                 }
                 def image = "${registry}/${repository}:${tag}"
+                def additionalTag = ''
+                if (BRANCH_NAME == 'master') {
+                    additionalTag = "--destination=${registry}/${repository}:latest"
+                }
+
                 echo image
                 container(name: 'kaniko', shell: '/busybox/sh') {
                     withEnv(['PATH+EXTRA=/busybox:/kaniko']) {
                         ansiColor('xterm') {
                             sh """#!/busybox/sh
-                            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --cache=true --destination=${image}
+                            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --cache=true --destination=${image} ${additionalTag}
                             """
                         }
                     }
