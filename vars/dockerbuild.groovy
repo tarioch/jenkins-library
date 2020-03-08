@@ -39,7 +39,7 @@ spec:
                     registry = 'registry.tario.org'
                 }
                 if (tag == '') {
-                    tag = "${BRANCH_NAME}-${commitHash}"
+                    tag = "${BRANCH_NAME}-${currentBuild.startTimeInMillis}-${commitHash}"
                 }
                 def image = "${registry}/${repository}:${tag}"
                 def additionalTag = ''
