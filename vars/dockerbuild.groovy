@@ -52,7 +52,7 @@ spec:
                     withEnv(['PATH+EXTRA=/busybox:/kaniko']) {
                         ansiColor('xterm') {
                             sh """#!/busybox/sh
-                            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --cache=true --destination=${image} ${additionalTag}
+                            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --cache=true --use-new-run --destination=${image} ${additionalTag}
                             """
                         }
                     }
