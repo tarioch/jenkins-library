@@ -49,7 +49,7 @@ spec:
             }
             stage('Build') {
                 if (registry == '') {
-                    registry = 'registry.tario.org'
+                    registry = 'repo.tario.org'
                 }
                 if (tag == '') {
                     tag = "${BRANCH_NAME.replace('/', '_')}-${currentBuild.startTimeInMillis}-${commitHash}"
