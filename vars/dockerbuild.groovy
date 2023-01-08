@@ -18,11 +18,24 @@ metadata:
 spec:
   containers:
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:v1.7.0-debug
+    image: gcr.io/kaniko-project/executor:v1.9.1-debug
     imagePullPolicy: Always
     command:
-    - /busybox/cat
-    tty: true
+    - sleep
+    args:
+    - 9999999
+    volumeMounts:
+      - name: jenkins-docker-cfg
+        mountPath: /kaniko/.docker
+  volumes:
+    - name: jenkins-docker-cfg
+      projected:
+        sources:
+        - secret:
+            name: docker-secret
+            items:
+              - key: .dockerconfigjson
+                path: config.json
     """
     ) {
         node(label) {
